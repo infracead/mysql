@@ -1,3 +1,16 @@
-PKG mysql57-server
+ARG VERSION=57
+ARG USER=cead
+ARG PWD=ADC987#
+ARG DB=wiki
+PKG mysql${VERSION}-server
+PKG vim
+PKG htop
+PKG bash
+PKG bash-completion
+PKG sudo
 SYSRC mysql_enable=YES
 SERVICE mysql-server restart
+CMD mysql -uroot -e "CREATE DATABASE ${DB};"
+CMD mysql -uroot -e "CREATE USER '${UER}'@'%' IDENTIFIED BY '${PWD}';"
+CMD mysql -uroot -e "GRANT ALL PRIVILEGES ON ${DB}.* TO '${USER}'@'%';"
+CMD mysql -uroot -e "FLUSH PRIVILEGES;"
