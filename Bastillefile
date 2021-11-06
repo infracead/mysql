@@ -9,6 +9,7 @@ PKG bash
 PKG bash-completion
 PKG sudo
 SYSRC mysql_enable=YES
+CMD echo -e "[client] \nport = 3306 \nsocket = /tmp/mysql.sock \n\n[mysqld] \nuser= mysql \nport = 3306 \nsocket = /tmp/mysql.sock \nbind-address = 0.0.0.0 \nbasedir = /usr/local \ndatadir= /var/db/mysql" > /usr/local/etc/mysql/my.cnf
 SERVICE mysql-server restart
 CMD chsh -s bash root
 CMD mysql -uroot -p"$(cat ~/.mysql_secret | awk 'NR==2')" -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${PWD};"
