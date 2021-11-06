@@ -13,7 +13,7 @@ CMD echo -e "[client] \nport = 3306 \nsocket = /tmp/mysql.sock \n\n[mysqld] \nus
 SERVICE mysql-server restart
 CMD chsh -s bash root
 CMD mysql -uroot -p"$(cat ~/.mysql_secret | awk 'NR==2')" -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${PWD};"
-CMD mysql -uroot -pADC987# -e "CREATE DATABASE ${DB};"
-CMD mysql -uroot -pADC987# -e "CREATE USER '${UER}'@'%' IDENTIFIED BY '${PWD}';"
-CMD mysql -uroot -pADC987# -e "GRANT ALL PRIVILEGES ON ${DB}.* TO '${USER}'@'%';"
-CMD mysql -uroot -pADC987# -e "FLUSH PRIVILEGES;"
+CMD mysql -uroot -p"${PWD}" -e "CREATE DATABASE ${DB};"
+CMD mysql -uroot -p"${PWD}" -e "CREATE USER '${UER}'@'%' IDENTIFIED BY '${PWD}';"
+CMD mysql -uroot -p"${PWD}" -e "GRANT ALL PRIVILEGES ON ${DB}.* TO '${USER}'@'%';"
+CMD mysql -uroot -p"${PWD}" -e "FLUSH PRIVILEGES;"
