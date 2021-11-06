@@ -10,7 +10,9 @@ PKG bash-completion
 PKG sudo
 SYSRC mysql_enable=YES
 SERVICE mysql-server restart
-CMD mysql -uroot -e "CREATE DATABASE ${DB};"
-CMD mysql -uroot -e "CREATE USER '${UER}'@'%' IDENTIFIED BY '${PWD}';"
-CMD mysql -uroot -e "GRANT ALL PRIVILEGES ON ${DB}.* TO '${USER}'@'%';"
-CMD mysql -uroot -e "FLUSH PRIVILEGES;"
+CMD chsh -s bash root
+CMD mysql -uroot -p"$(cat ~/.mysql_secret | awk 'NR==2')" -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${PWD};"
+CMD mysql -uroot -pADC987# -e "CREATE DATABASE ${DB};"
+CMD mysql -uroot -pADC987# -e "CREATE USER '${UER}'@'%' IDENTIFIED BY '${PWD}';"
+CMD mysql -uroot -pADC987# -e "GRANT ALL PRIVILEGES ON ${DB}.* TO '${USER}'@'%';"
+CMD mysql -uroot -pADC987# -e "FLUSH PRIVILEGES;"
